@@ -74,38 +74,6 @@ graph TD
   Output --> User
 ```
 
-   
-```mermaid
-graph TD
-    subgraph "User Interface"
-        User[("👤<br/>User")] --> Playground["Mastra Playground UI"]
-    end
-
-    Playground --> Network{" supabaseMcpNetwork<br/>(Coordinator)"}
-
-    subgraph "Agent Execution Flow"
-        Network -- "1. Start Discovery<br/>(URL, Email)" --> DiscoveryAgent["🤖<br/>discoveryAgent"]
-        DiscoveryAgent -- "2. List capabilities" --> MCPClient["@mastra/mcp<br/>MCPClient"]
-        MCPClient -- "(via supabase-ro server)" --> SupabaseDB[("🐘<br/>Supabase Project")]
-        SupabaseDB -- "Schema, Functions, RLS" --> MCPClient
-        MCPClient -- "Discovery data" --> DiscoveryAgent
-        DiscoveryAgent -- "3. Returns Discovery.json" --> Network
-
-        Network -- "4. Generate Tools Config" --> ConfigAgent["🤖<br/>configAgent"]
-        ConfigAgent -- "5. Returns Tools.json" --> Network
-
-        Network -- "6. Generate/Execute SQL<br/>(tools.json, execute_flag)" --> SQLAgent["🤖<br/>sqlRlsAgent"]
-        SQLAgent -- "7. apply_migration" --> MCPClient
-        MCPClient -- "(via supabase-admin server)" --> SupabaseDB
-        SQLAgent -- "8. Returns SQL & Status" --> Network
-    end
-
-    subgraph "Final Output"
-        Network --> FinalResult["📝<br/>Combined Output<br/>(Discovery, Tools, SQL)"]
-        FinalResult --> User
-    end
-```
-
 ## Prerequisites
 
 - Node.js v20+.
