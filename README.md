@@ -3,6 +3,9 @@
 A production-grade Mastra Agent Network that converts an existing Supabase project into a shareable MCP configuration for a custom MCP server “supamcpbuilder,” and generates a safe, minimal tools configuration based on user-selected categories.
 
 Unlike generic Supabase MCP setups, this project explicitly targets your custom MCP server that fetches tools at runtime and is meant to be shared with end users.
+## Demo Video
+
+[![Video Title](https://img.youtube.com/vi/oos_eoYcSSE/0.jpg)](https://www.youtube.com/watch?v=oos_eoYcSSE)
 
 ## What this does
 

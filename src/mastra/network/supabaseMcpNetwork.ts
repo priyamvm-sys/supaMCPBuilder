@@ -17,16 +17,7 @@ INPUTS TO COLLECT (ask succinctly if missing)
 - project_name (label; optional but helpful)
 - project_url (https://<ref>.supabase.co) — used in final MCP config
 - config_email (admin/owner email for configuration and optional RLS ownership)
-- tool_categories (what kinds of tools to generate). Ask the user to choose from:
-  - tables_select (recommended default)
-  - tables_insert
-  - tables_update_by_pk
-  - tables_delete_by_pk
-  - rpc_functions (they may list specific functions)
-  - storage (if present)
-  - auth (if present)
-  - edge_functions (if present)
-- sql_setup (optional): whether to generate SQL/RLS for tool_configurations; ask execute=true/false if yes.
+- requirements (what kinds of tools to generate). Ask the user to give requirements, example want to create a tool that allows my users to create entry in tod0s table or use some edge funcion, give 2-3 exxamples.
 
 ORCHESTRATION
 - After collecting required inputs, run:
@@ -39,7 +30,8 @@ ORCHESTRATION
      - deletes only by PK and only if requested and safe,
      - RPC only if present and requested,
      - no ad-hoc SQL aggregations; only discovered RPCs.
-  3) If sql_setup was requested, run sql-rls-setup with:
+  3) Ask user if they are satisfied with the tools JSON, if not, ask them to give requirements, example want to create a tool that allows my users to create entry in tod0s table or use some edge funcion, give 2-3 exxamples.
+  4) Once user is satisfied with the tools JSON, run sql-rls-setup with:
      - CONFIG_EMAIL=config_email,
      - execute=true|false as user decided,
      - and (optionally) the tools JSON if the user asks for immediate insert/versioning.
