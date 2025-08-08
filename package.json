@@ -8,8 +8,8 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.0.0",
-    "@mastra/core": "^0.13.0",
+    "@ai-sdk/openai": "^1.0.7",
+    "@mastra/core": "^0.10.0",
     "@mastra/mcp": "^0.10.0",
     "zod": "^3.25.0"
   },
