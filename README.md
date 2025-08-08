@@ -17,6 +17,9 @@ The system consists of three specialized agents coordinated by an Agent Network:
 1. **supabase-discovery** - Enumerates existing Supabase capabilities (Edge Functions, DB Functions, Tables, RLS policies, Extensions)
 2. **tools-config-generator** - Converts discovery data into tools following strict exposure rules
 3. **sql-rls-setup** - Creates tool_configurations table with RLS policies and optional execution
+
+   
+```mermaid
 graph TD
     subgraph "User Interface"
         User[("👤<br/>User")] --> Playground["Mastra Playground UI"]
@@ -45,16 +48,8 @@ graph TD
         Network --> FinalResult["📝<br/>Combined Output<br/>(Discovery, Tools, SQL)"]
         FinalResult --> User
     end
+```
 
-    style User fill:#f9f,stroke:#333,stroke-width:2px
-    style Playground fill:#ccf,stroke:#333,stroke-width:2px
-    style Network fill:#9f9,stroke:#333,stroke-width:2px
-    style DiscoveryAgent fill:#add8e6,stroke:#333,stroke-width:2px
-    style ConfigAgent fill:#add8e6,stroke:#333,stroke-width:2px
-    style SQLAgent fill:#add8e6,stroke:#333,stroke-width:2px
-    style SupabaseDB fill:#ffb347,stroke:#333,stroke-width:2px
-    style FinalResult fill:#ffcc99,stroke:#333,stroke-width:2px
-    style MCPClient fill:#f0e68c,stroke:#333,stroke-width:2px
 ## Prerequisites
 
 - Node.js v20.0 or higher
