@@ -56,21 +56,21 @@ graph TD
   end
 
   subgraph "Agents"
-    Network -- "1) Discovery" --> D["🤖 discoveryAgent"]
+    Network -- "1 Discovery" --> D[" discoveryAgent"]
     D --> MCP["@mastra/mcp\nMCPClient (read-only)"]
-    MCP --> DB[("🐘 Supabase Project")]
+    MCP --> DB[(" Supabase Project")]
     D -- "discovery.json" --> Network
 
-    Network -- "2) Tools config" --> C["🤖 configAgent"]
+    Network -- "2 Tools config" --> C[" configAgent"]
     C -- "tools.json" --> Network
 
-    Network -- "3) (Optional) SQL/RLS" --> S["🤖 sqlRlsAgent"]
+    Network -- "3 (Optional) SQL/RLS" --> S[" sqlRlsAgent"]
     S --> MCPAdmin["@mastra/mcp\nMCPClient (admin)"]
     MCPAdmin --> DB
     S -- "sql_json" --> Network
   end
 
-  Network -- "4) Final" --> Output["🧩 DISCOVERY + TOOLS + MCP_CONFIG (+ SQL_JSON)"]
+  Network -- "4 Final" --> Output[" DISCOVERY + TOOLS + MCP_CONFIG (+ SQL_JSON)"]
   Output --> User
 ```
 
