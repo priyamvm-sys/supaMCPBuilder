@@ -17,7 +17,44 @@ The system consists of three specialized agents coordinated by an Agent Network:
 1. **supabase-discovery** - Enumerates existing Supabase capabilities (Edge Functions, DB Functions, Tables, RLS policies, Extensions)
 2. **tools-config-generator** - Converts discovery data into tools following strict exposure rules
 3. **sql-rls-setup** - Creates tool_configurations table with RLS policies and optional execution
+graph TD
+    subgraph "User Interface"
+        User[("👤<br/>User")] --> Playground["Mastra Playground UI"]
+    end
 
+    Playground --> Network{" supabaseMcpNetwork<br/>(Coordinator)"}
+
+    subgraph "Agent Execution Flow"
+        Network -- "1. Start Discovery<br/>(URL, Email)" --> DiscoveryAgent["🤖<br/>discoveryAgent"]
+        DiscoveryAgent -- "2. List capabilities" --> MCPClient["@mastra/mcp<br/>MCPClient"]
+        MCPClient -- "(via supabase-ro server)" --> SupabaseDB[("🐘<br/>Supabase Project")]
+        SupabaseDB -- "Schema, Functions, RLS" --> MCPClient
+        MCPClient -- "Discovery data" --> DiscoveryAgent
+        DiscoveryAgent -- "3. Returns Discovery.json" --> Network
+
+        Network -- "4. Generate Tools Config" --> ConfigAgent["🤖<br/>configAgent"]
+        ConfigAgent -- "5. Returns Tools.json" --> Network
+
+        Network -- "6. Generate/Execute SQL<br/>(tools.json, execute_flag)" --> SQLAgent["🤖<br/>sqlRlsAgent"]
+        SQLAgent -- "7. apply_migration" --> MCPClient
+        MCPClient -- "(via supabase-admin server)" --> SupabaseDB
+        SQLAgent -- "8. Returns SQL & Status" --> Network
+    end
+
+    subgraph "Final Output"
+        Network --> FinalResult["📝<br/>Combined Output<br/>(Discovery, Tools, SQL)"]
+        FinalResult --> User
+    end
+
+    style User fill:#f9f,stroke:#333,stroke-width:2px
+    style Playground fill:#ccf,stroke:#333,stroke-width:2px
+    style Network fill:#9f9,stroke:#333,stroke-width:2px
+    style DiscoveryAgent fill:#add8e6,stroke:#333,stroke-width:2px
+    style ConfigAgent fill:#add8e6,stroke:#333,stroke-width:2px
+    style SQLAgent fill:#add8e6,stroke:#333,stroke-width:2px
+    style SupabaseDB fill:#ffb347,stroke:#333,stroke-width:2px
+    style FinalResult fill:#ffcc99,stroke:#333,stroke-width:2px
+    style MCPClient fill:#f0e68c,stroke:#333,stroke-width:2px
 ## Prerequisites
 
 - Node.js v20.0 or higher
