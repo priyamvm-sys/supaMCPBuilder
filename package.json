@@ -1,0 +1,21 @@
+{
+  "name": "mastra-supabase-mcp",
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "mastra dev",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.0.0",
+    "@mastra/core": "^0.13.0",
+    "@mastra/mcp": "^0.10.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "mastra": "^0.10.20",
+    "typescript": "^5.4.0"
+  }
+}
